@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auto-Fahrspiel</title>
+    <style>
+      #auto {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 100px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="auto"></div>
+
+    <script>
+      // Fahrzeug-Objekt erstellen
+      var auto = {
+        x: 0, // x-Position
+        y: 0, // y-Position
+        speed: 5, // Geschwindigkeit
+        angle: 0, // Winkel
+        element: document.getElementById("auto"), // DOM-Element des Autos
+
+        // Funktion zum Bewegen des Autos
+        move: function () {
+          // Neue Position berechnen
+          var newX =
+            this.x + Math.sin((this.angle * Math.PI) / 180) * this.speed;
+          var newY =
+            this.y - Math.cos((this.angle * Math.PI) / 180) * this.speed;
+
+          // Überprüfen, ob das Auto das Spielfeld verlässt
+          if (
+            newX >= 0 &&
+            newX <= window.innerWidth - this.element.offsetWidth &&
+            newY >= 0 &&
+            newY <= window.innerHeight - this.element.offsetHeight
+          ) {
+            // Neue Position setzen
+            this.x = newX;
+            this.y = newY;
+
+            // Auto auf die neue Position verschieben
+            this.element.style.left = this.x + "px";
+            this.element.style.top = this.y + "px";
+          }
+        },
+
+        // Funktion zum Drehen des Autos
+        rotate: function (angle) {
+          this.angle += angle;
+          this.element.style.transform = "rotate(" + this.angle + "deg)";
+        },
+      };
+
+      // Tastatursteuerung
+      document.addEventListener("keydown", function (event) {
+        switch (event.keyCode) {
+          case 37: // Linke Pfeiltaste
+            auto.rotate(-10);
+            break;
+          case 38: // Obere Pfeiltaste
+            auto.move();
+            break;
+          case 39: // Rechte Pfeiltaste
+            auto.rotate(10);
+            break;
+          case 40: // Untere Pfeiltaste
+            auto.move();
+            break;
+        }
+      });
+    </script>
+  </body>
+</html>
