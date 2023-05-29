@@ -12,12 +12,16 @@ function handleKeyDown(event) {
   var key = event.key;
 
   if (key === "ArrowUp") {
+    event.preventDefault(); // Verhindert das Scrollen der Seite bei Pfeiltastenbetätigung
     accelerateUp();
   } else if (key === "ArrowDown") {
+    event.preventDefault();
     accelerateDown();
   } else if (key === "ArrowLeft") {
+    event.preventDefault();
     accelerateLeft();
   } else if (key === "ArrowRight") {
+    event.preventDefault();
     accelerateRight();
   }
 }
@@ -26,8 +30,10 @@ function handleKeyUp(event) {
   var key = event.key;
 
   if (key === "ArrowUp" || key === "ArrowDown") {
+    event.preventDefault();
     stopVertical();
   } else if (key === "ArrowLeft" || key === "ArrowRight") {
+    event.preventDefault();
     stopHorizontal();
   }
 }
@@ -92,7 +98,12 @@ function updatePosition() {
   var auto = document.getElementById("auto");
   var currentTop = parseInt(auto.style.top) || 0;
   var currentLeft = parseInt(auto.style.left) || 0;
-  
+
   var newTop = currentTop + speedY;
   var newLeft = currentLeft + speedX;
-  
+
+  auto.style.top = newTop + "px";
+  auto.style.left = newLeft + "px";
+}
+
+setInterval(updatePosition, 16); // Aktualisiert die Position des Autos alle 16 Millisekunden
