@@ -6,7 +6,6 @@ var carWidth = car.offsetWidth;
 var carHeight = car.offsetHeight;
 var carPosX = containerWidth / 2 - carWidth / 2;
 var carPosY = containerHeight / 2 - carHeight / 2;
-var stepSize = 1;
 var speedX = 0;
 var speedY = 0;
 var acceleration = 0.2;
@@ -51,9 +50,17 @@ function update() {
 
   car.style.left = carPosX + "px";
   car.style.top = carPosY + "px";
+  car.style.transform = `translate(-50%, -50%) rotate(${
+    Math.atan2(speedY, speedX) * (180 / Math.PI)
+  }deg)`; // Das Auto in die Richtung der Geschwindigkeit drehen
 
   requestAnimationFrame(update);
 }
+
+window.addEventListener("resize", function () {
+  containerWidth = container.offsetWidth;
+  containerHeight = container.offsetHeight;
+});
 
 document.addEventListener("keydown", function (event) {
   keys[event.keyCode] = true;
@@ -62,5 +69,3 @@ document.addEventListener("keydown", function (event) {
 document.addEventListener("keyup", function (event) {
   keys[event.keyCode] = false;
 });
-
-update();
