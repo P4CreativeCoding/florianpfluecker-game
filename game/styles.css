@@ -25,5 +25,5 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   transition: transform 0.2s ease-in-out;
-  opacity: 0; /* Flüssige Übergänge beim Drehen des Autos */
+  /* Flüssige Übergänge beim Drehen des Autos */
 }
