@@ -1,79 +1,25 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Auto-Fahrspiel</title>
-    <style>
-      #auto {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 50px;
-        height: 100px;
-        background-color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="auto"></div>
-
-    <script>
-      // Fahrzeug-Objekt erstellen
-      var auto = {
-        x: 0, // x-Position
-        y: 0, // y-Position
-        speed: 5, // Geschwindigkeit
-        angle: 0, // Winkel
-        element: document.getElementById("auto"), // DOM-Element des Autos
-
-        // Funktion zum Bewegen des Autos
-        move: function () {
-          // Neue Position berechnen
-          var newX =
-            this.x + Math.sin((this.angle * Math.PI) / 180) * this.speed;
-          var newY =
-            this.y - Math.cos((this.angle * Math.PI) / 180) * this.speed;
-
-          // Überprüfen, ob das Auto das Spielfeld verlässt
-          if (
-            newX >= 0 &&
-            newX <= window.innerWidth - this.element.offsetWidth &&
-            newY >= 0 &&
-            newY <= window.innerHeight - this.element.offsetHeight
-          ) {
-            // Neue Position setzen
-            this.x = newX;
-            this.y = newY;
-
-            // Auto auf die neue Position verschieben
-            this.element.style.left = this.x + "px";
-            this.element.style.top = this.y + "px";
-          }
-        },
-
-        // Funktion zum Drehen des Autos
-        rotate: function (angle) {
-          this.angle += angle;
-          this.element.style.transform = "rotate(" + this.angle + "deg)";
-        },
-      };
-
-      // Tastatursteuerung
-      document.addEventListener("keydown", function (event) {
-        switch (event.keyCode) {
-          case 37: // Linke Pfeiltaste
-            auto.rotate(-10);
-            break;
-          case 38: // Obere Pfeiltaste
-            auto.move();
-            break;
-          case 39: // Rechte Pfeiltaste
-            auto.rotate(10);
-            break;
-          case 40: // Untere Pfeiltaste
-            auto.move();
-            break;
-        }
-      });
-    </script>
-  </body>
-</html>
+document.addEventListener("keydown", handleKeyDown);
+document.addEventListener("keyup", handleKeyUp); var acceleration = 0.2; //
+Beschleunigung des Autos var deceleration = -0.2; // Bremsen des Autos var
+maxSpeed = 5; // Maximale Geschwindigkeit des Autos var speedX = 0; //
+Geschwindigkeit des Autos in horizontaler Richtung var speedY = 0; //
+Geschwindigkeit des Autos in vertikaler Richtung function handleKeyDown(event) {
+var key = event.key; if (key === "ArrowUp") { accelerateUp(); } else if (key ===
+"ArrowDown") { accelerateDown(); } else if (key === "ArrowLeft") {
+accelerateLeft(); } else if (key === "ArrowRight") { accelerateRight(); } }
+function handleKeyUp(event) { var key = event.key; if (key === "ArrowUp" || key
+=== "ArrowDown") { stopVertical(); } else if (key === "ArrowLeft" || key ===
+"ArrowRight") { stopHorizontal(); } } function accelerateUp() { speedY -=
+acceleration; if (speedY < -maxSpeed) { speedY = -maxSpeed; } } function
+accelerateDown() { speedY += acceleration; if (speedY > maxSpeed) { speedY =
+maxSpeed; } } function accelerateLeft() { speedX -= acceleration; if (speedX <
+-maxSpeed) { speedX = -maxSpeed; } } function accelerateRight() { speedX +=
+acceleration; if (speedX > maxSpeed) { speedX = maxSpeed; } } function
+stopVertical() { if (speedY > 0) { speedY += deceleration; if (speedY < 0) {
+speedY = 0; } } else if (speedY < 0) { speedY -= deceleration; if (speedY > 0) {
+speedY = 0; } } } function stopHorizontal() { if (speedX > 0) { speedX +=
+deceleration; if (speedX < 0) { speedX = 0; } } else if (speedX < 0) { speedX -=
+deceleration; if (speedX > 0) { speedX = 0; } } } function updatePosition() {
+var auto = document.getElementById("auto"); var currentTop =
+parseInt(auto.style.top) || 0; var currentLeft = parseInt(auto.style.left) || 0;
+var newTop = currentTop + speedY; var newLeft = currentLeft + speedX;
