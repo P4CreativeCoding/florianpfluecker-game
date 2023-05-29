@@ -20,24 +20,20 @@ function update() {
     speedY -= acceleration;
     if (keys[37] && speedY !== 0) {
       // Left arrow key while moving forward or backward
-      steeringAngle = -maxSteeringAngle;
+      steeringAngle -= 5;
     } else if (keys[39] && speedY !== 0) {
       // Right arrow key while moving forward or backward
-      steeringAngle = maxSteeringAngle;
-    } else {
-      steeringAngle = 0;
+      steeringAngle += 5;
     }
   } else if (keys[40]) {
     // Down arrow key
     speedY += acceleration;
     if (keys[37] && speedY !== 0) {
       // Left arrow key while moving forward or backward
-      steeringAngle = -maxSteeringAngle;
+      steeringAngle += 5;
     } else if (keys[39] && speedY !== 0) {
       // Right arrow key while moving forward or backward
-      steeringAngle = maxSteeringAngle;
-    } else {
-      steeringAngle = 0;
+      steeringAngle -= 5;
     }
   } else {
     if (keys[37]) {
@@ -46,8 +42,6 @@ function update() {
     } else if (keys[39]) {
       // Right arrow key while not moving forward or backward
       speedX += acceleration;
-    } else {
-      steeringAngle = 0;
     }
   }
 
