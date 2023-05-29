@@ -9,16 +9,37 @@ var carPosY = containerHeight / 2 - carHeight / 2;
 var speedY = 0;
 var acceleration = 0.2;
 var friction = 0.98;
+var steeringAngle = 0;
+var maxSteeringAngle = 45;
 var keys = {};
 
 function update() {
   if (keys[38]) {
     // Up arrow key
     speedY -= acceleration;
-  }
-  if (keys[40]) {
+    if (keys[37]) {
+      // Left arrow key
+      steeringAngle = -maxSteeringAngle;
+    } else if (keys[39]) {
+      // Right arrow key
+      steeringAngle = maxSteeringAngle;
+    } else {
+      steeringAngle = 0;
+    }
+  } else if (keys[40]) {
     // Down arrow key
     speedY += acceleration;
+    if (keys[37]) {
+      // Left arrow key
+      steeringAngle = -maxSteeringAngle;
+    } else if (keys[39]) {
+      // Right arrow key
+      steeringAngle = maxSteeringAngle;
+    } else {
+      steeringAngle = 0;
+    }
+  } else {
+    steeringAngle = 0;
   }
 
   speedY *= friction;
@@ -32,9 +53,7 @@ function update() {
   }
 
   car.style.top = carPosY + "px";
-  car.style.transform = `translate(-50%, -50%) rotate(${
-    Math.atan2(speedY, 0) * (180 / Math.PI)
-  }deg)`; // Das Auto in die Richtung der Geschwindigkeit drehen
+  car.style.transform = `translate(-50%, -50%) rotate(${steeringAngle}deg)`; // Das Auto entsprechend der Lenkrichtung drehen
 
   requestAnimationFrame(update);
 }
