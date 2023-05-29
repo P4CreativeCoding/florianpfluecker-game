@@ -69,3 +69,5 @@ document.addEventListener("keydown", function (event) {
 document.addEventListener("keyup", function (event) {
   keys[event.keyCode] = false;
 });
+
+update();
