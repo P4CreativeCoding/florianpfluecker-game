@@ -23,5 +23,5 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg); /* Das Auto um -90 Grad drehen, um es längs der Fahrtrichtung anzuzeigen */
+  transform: translate(-50%, -50%);
 }

@@ -19,27 +19,31 @@ function update() {
     speedY -= acceleration;
     if (keys[37]) {
       // Left arrow key
-      steeringAngle = -maxSteeringAngle;
+      steeringAngle -= 2;
     } else if (keys[39]) {
       // Right arrow key
-      steeringAngle = maxSteeringAngle;
-    } else {
-      steeringAngle = 0;
+      steeringAngle += 2;
     }
   } else if (keys[40]) {
     // Down arrow key
     speedY += acceleration;
     if (keys[37]) {
       // Left arrow key
-      steeringAngle = -maxSteeringAngle;
+      steeringAngle -= 2;
     } else if (keys[39]) {
       // Right arrow key
-      steeringAngle = maxSteeringAngle;
+      steeringAngle += 2;
+    }
+  } else {
+    if (keys[37]) {
+      // Left arrow key
+      steeringAngle -= 2;
+    } else if (keys[39]) {
+      // Right arrow key
+      steeringAngle += 2;
     } else {
       steeringAngle = 0;
     }
-  } else {
-    steeringAngle = 0;
   }
 
   speedY *= friction;
