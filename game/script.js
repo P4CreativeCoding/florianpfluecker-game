@@ -18,29 +18,35 @@ function update() {
   if (keys[38]) {
     // Up arrow key
     speedY -= acceleration;
-    if (keys[37] && speedY !== 0) {
-      // Left arrow key while moving forward or backward
-      steeringAngle -= 5;
-    } else if (keys[39] && speedY !== 0) {
-      // Right arrow key while moving forward or backward
-      steeringAngle += 5;
+    if (keys[38] && speedY !== 0) {
+      // Only steer while moving up
+      if (keys[37]) {
+        // Left arrow key while moving up
+        steeringAngle -= 5;
+      } else if (keys[39]) {
+        // Right arrow key while moving up
+        steeringAngle += 5;
+      }
     }
   } else if (keys[40]) {
     // Down arrow key
     speedY += acceleration;
-    if (keys[37] && speedY !== 0) {
-      // Left arrow key while moving forward or backward
-      steeringAngle += 5;
-    } else if (keys[39] && speedY !== 0) {
-      // Right arrow key while moving forward or backward
-      steeringAngle -= 5;
+    if (keys[40] && speedY !== 0) {
+      // Only steer while moving down
+      if (keys[37]) {
+        // Left arrow key while moving down
+        steeringAngle -= 5;
+      } else if (keys[39]) {
+        // Right arrow key while moving down
+        steeringAngle += 5;
+      }
     }
   } else {
     if (keys[37]) {
-      // Left arrow key while not moving forward or backward
+      // Left arrow key while not moving up or down
       speedX -= acceleration;
     } else if (keys[39]) {
-      // Right arrow key while not moving forward or backward
+      // Right arrow key while not moving up or down
       speedX += acceleration;
     }
   }
